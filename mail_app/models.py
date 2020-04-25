@@ -30,6 +30,5 @@ class Department(models.Model):
     department_hod_email = models.EmailField(verbose_name="Email")
     department_name = models.CharField(max_length=100, verbose_name="Name of Department")
 
-
     def __str__(self):
         return self.department_name
