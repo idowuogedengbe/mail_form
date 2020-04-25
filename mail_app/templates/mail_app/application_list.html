@@ -18,5 +18,38 @@
             <h2><a href="">My second post</a></h2>
             <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
         </div>
+
+    {% block content %}
+    <div class="row mt-4 table table-sm">
+        <table id="myTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Department</th>
+                <th scope="col">Date Applied</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for get_all_applicant in get_all_applicants%}
+              <tr>
+
+                <th scope="row">1</th>
+                <td>{{ get_all_applicant.first_name }}</td>
+                <td>{{ get_all_applicant.last_name }}</td>
+                <td>{{ get_all_applicant.designation }}</td>
+                <td>{{ get_all_applicant.department_name }}</td>
+                <td>{{ get_all_applicant.date_applied }}</td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+
+    </div>
+    {% endblock content %}
+
     </body>
 </html>
