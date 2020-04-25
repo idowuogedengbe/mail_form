@@ -4,6 +4,6 @@ from django.contrib import admin
 from .models import Application, Department
 
 
-admin.site.register(Application)
+# admin.site.register(Application)
 admin.site.register(Department)
 
