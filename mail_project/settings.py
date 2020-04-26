@@ -68,6 +68,11 @@ TEMPLATES = [
     },
 ]
 
+EMAIL_PORT = 22
+EMAIL_HOST = 'mail.uch-ibadan.org.ng'
+EMAIL_HOST_USER = 'requestform@uch-ibadan.org.ng'
+EMAIL_HOST_PASSWORD = 'Requestform@'
+
 WSGI_APPLICATION = 'mail_project.wsgi.application'
 
 
