@@ -1,11 +1,10 @@
-
 from django.db import models
+
 
 # Create your models here.
 
 
 class Application(models.Model):
-
     last_name = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
     other_name = models.CharField(max_length=100)
@@ -18,7 +17,8 @@ class Application(models.Model):
     date_applied = models.DateTimeField(auto_now_add=True, )
     date_last_edited = models.DateTimeField(auto_now=True)
 
-    def  __str__(self):
+
+    def __str__(self):
         return self.last_name
 
 

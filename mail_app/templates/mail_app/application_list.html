@@ -5,11 +5,11 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-        <title>Django Girls blog</title>
+        <title>UCH Ibadanpy</title>
     </head>
     <body>
         <div>
-            <h1><a href="/">Django Girls Blog</a></h1>
+            <h1><a href="/">LIST OF APPLICANTS FOR OFFICIAL EMAIL ADDRESS</a></h1>
         </div>
 
 
@@ -25,6 +25,7 @@
                 <th scope="col">Designation</th>
                 <th scope="col">Department</th>
                 <th scope="col">Date Applied</th>
+                  <th scope="col"> HOD Endorsement</th>
               </tr>
             </thead>
             <tbody>
@@ -35,8 +36,13 @@
                 <td>{{ get_all_applicant.first_name }}</td>
                 <td>{{ get_all_applicant.last_name }}</td>
                 <td>{{ get_all_applicant.designation }}</td>
-                <td>{{ get_all_applicant.department_name }}</td>
-                <td>{{ get_all_applicant.date_applied }}</td>
+                 <td>{{ get_all_applicant.department_select }}</td>
+                <td>{{ get_all_applicant.date_applied|date:"d-m-Y" }}</td>
+                  {% if get_all_applicant.is_active == 1 %}
+                        <td> Endorsed</td>
+                  {% else %}
+                        <td> Not yet endorsed</td>
+                  {% endif %}
               </tr>
               {% endfor %}
 
@@ -45,6 +51,28 @@
 
     </div>
     {% endblock content %}
+
+            {%  block js%}
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.css"/>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.js"></script>
+        <script>
+          $(document).ready(function(){
+              $('#myTable').dataTable();
+          });
+          </script>
+
+        <script>
+            function myFunction() {
+                 {
+                    document.getElementById("myTable").innerHTML = "Good day";
+                            }
+                                }
+        </script>
+        {% endblock js  %}
 
     </body>
 </html>

@@ -19,7 +19,9 @@ from .token_generator import account_activation_token
 
 
 def application_list(request):
+    # e = Department.objects.get()
     get_all_applicants = Application.objects.all().order_by("-date_applied")
+    # .select_related()
     return render(request, 'mail_app/application_list.html', {"get_all_applicants": get_all_applicants})
 
 
@@ -39,9 +41,6 @@ def application(request):
 
         # GET ALL DEPARTMENTS INTO SELECT BUTTON
 
-
-
-
         # GET ALL APPLICATIONS
 
         applicant = Application.objects.create(pno=pno, last_name=last_name, first_name=first_name,
@@ -49,7 +48,7 @@ def application(request):
                                                designation=designation, department_select=department_name)
 
         # GET APPLICANT'S DEPARTMENT TO GET HOD EMAIL
-        get_applicant_department = Department.objects.get(id=department_name)
+        get_applicant_department = Department.objects.get(department_name=department_name)
         get_applicant_hod_email = get_applicant_department.department_hod_email
         print(get_applicant_department.department_hod_last_name)
         print(get_applicant_department.department_hod_first_name)
@@ -66,11 +65,11 @@ def application(request):
             'uid': urlsafe_base64_encode(force_bytes(applicant.pk)),
             'token': account_activation_token.make_token(applicant),
         })
-        msg_to_hod = (subject, message_to_hod, 'payslip@uch-ibadan.org.ng', [get_applicant_hod_email])
+        msg_to_hod = (subject, message_to_hod, 'requestform@uch-ibadan.org.ng', [get_applicant_hod_email])
         msg_to_applicant = (subject,
                             'We have sent an email to your Head of Department to confirm your employment status '
                             'before we continue processing your application',
-                            'payslip@uch-ibadan.org.ng', [email])
+                            'requestform@uch-ibadan.org.ng', [email])
 
         send_mass_mail((msg_to_applicant, msg_to_hod), fail_silently=False)
 
@@ -78,10 +77,9 @@ def application(request):
             'We have sent an email to your Head of Department to confirm your employment status before we continue '
             'processing your application')
 
-
     else:
         departmentlists = Department.objects.all().order_by('department_name')
-        print("depart: ", departmentlists)
+
         return render(request, 'mail_app/application.html', {"departmentlists": departmentlists})
 
     # DISPLAY ALL APPLICANTIONS
@@ -107,13 +105,8 @@ def activate_account(request, uidb64, token):
         )
         # login(request, user)
 
-        return HttpResponse('Your account has been activate successfully')
+        return HttpResponse('Your account has been activated successfully')
     else:
         return HttpResponse('Activation link is invalid!')
-
-
-def list_all_applicants(request):
-    get_all_applicants = Application.objects.all().order_by("date_applied")
-    return render(request, 'test.html', {"get_all_applicants": get_all_applicants})
 
     admin.site.register(Department)
